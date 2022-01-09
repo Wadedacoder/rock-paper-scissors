@@ -23,7 +23,6 @@ function computer_choice()
 function play_round()
 {
     let humanweap = prompt("Choose ur weapon").toLowerCase();
-    alert(`Your weapon is ${humanweap}`);
     if (humanweap == "rock" || humanweap == "paper" || humanweap == "scissor")
     {
 
@@ -34,7 +33,6 @@ function play_round()
         play_round();
     }
     let compweap = computer_choice();
-    alert(`comp weapon is ${compweap}`);
     if(compweap == humanweap)
     {
         alert("Draw! Playing another round");
