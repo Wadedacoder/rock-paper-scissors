@@ -1,3 +1,4 @@
+window.onload = function(){
 let human_score = 0;
 let computer_score = 0;
 
@@ -20,60 +21,71 @@ function computer_choice()
     return compw;
 }
 
-function play_round()
-{
-    let humanweap = prompt("Choose ur weapon").toLowerCase();
-    alert(`Your weapon is ${humanweap}`);
-    if (humanweap == "rock" || humanweap == "paper" || humanweap == "scissor")
-    {
+function refresh_score(){
+//    document.getElementById("#cscore").innerHTML=computer_score.toString;
+//    document.getElementById("#hscore").innerHTML=human_score.toString;
+document.querySelector('#hscore').innerHTML = human_score;
+document.querySelector('#cscore').innerHTML = computer_score;
+}
 
+function check_score(){
+    if(human_score == 5 || computer_score == 5){
+        return true;
     }
-    else
-    {
-        alert("Invalid choice . Starting another round")
-        play_round();
-    }
+    return false;
+}
+
+function print_winner(e){
+    document.querySelector(".result").innerHTML = `${e} is the winner`;  
+    return;                   
+}
+
+function play_round(e)
+{
+    let humanweap = e.target.id;
+    humanweap = humanweap.toLowerCase();
     let compweap = computer_choice();
-    alert(`comp weapon is ${compweap}`);
+    if (check_score()){
+        if (computer_score > human_score){
+            print_winner("CPU");
+            return;
+        }
+        else{
+            print_winner("Human");
+            return;
+        }
+    }
     if(compweap == humanweap)
     {
-        alert("Draw! Playing another round");
+        
     }
     else if (compweap == "rock" && humanweap == "scissor")
     {
         computer_score++;
-        alert("Computer Wins!");
+        
     }
     else if (compweap == "paper" && humanweap == "rock")
     {
         computer_score++;
-        alert("Computer Wins!");
+        
     }
     else if (compweap == "scissor" && humanweap == "paper")
     {
         computer_score++;
-        alert("Computer Wins!");
+        
     }
     else
     {
         human_score++;
-        alert("You Win!");
     }
-    alert(`The current score is ${human_score}-${computer_score}`);
+    console.log(`Human-${human_score} || CPU-${computer_score}`);
+    refresh_score();
+    return;
 }
-
-while(true)
-{
-    play_round();
-    if(computer_score == 5)
-    {
-        alert("You were defeated!");
-        break;
-    }
-    else if(human_score == 5)
-    {
-        alert("You were victorious");
-        break;
-    }
-
-}
+let buttons = document.querySelectorAll(".weapon");
+buttons.forEach((button)=>{
+    const weapon = button.id;
+    button.addEventListener('click', play_round);
+    
+});
+};
